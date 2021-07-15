@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Organ Type{% endblock %}
+{% block maintitle %}New Organ Type{% endblock %}
+
+{% block body %}
+      <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('organ_type_index') }}">Back</a>
+			
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+    {{ include('organ_type/_form.html.twig') }}
+
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+	<style></style>
+{% endblock %}
+{% block body %}
+
+
+	<div class="card card-outline card-info">
+	<div class="card-body">
+	<div class="text-center">
+		<h1>Welcome
+			{{ app.user ? app.user.firstName:"Friend" }}</h1>
+		<h3 class=" text-danger">
+			WITH GREAT POWER COMES GREAT RESPONSIBILITY!!
+		</h3>
+
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-sm-6 col-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-info">
+					<i class="fa fa-heart"></i>
+				</span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Total Donors</span>
+					<span class="info-box-number">{{donor_count}}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+		<div class="col-md-4 col-sm-6 col-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-success">
+					<i class="fa fa-user"></i>
+				</span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Total Recipients</span>
+					<span class="info-box-number">{{recipient_count}}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+		<div class="col-md-4 col-sm-6 col-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-warning">
+					<i class="fa fa-list"></i>
+				</span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Total Donations</span>
+					<span class="info-box-number">{{donation_count}}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+		
+	</div>
+
+    
+	<div class="row">
+	
+		<!-- /.col -->
+		<div class="col-md-4 col-sm-6 col-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-success">
+					<i class="fa fa-list"></i>
+				</span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Ongoing Donations</span>
+					<span class="info-box-number">0</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+		<div class="col-md-4 col-sm-6 col-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-warning">
+					<i class="fa  fa-close"></i>
+				</span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Closed Donations</span>
+					<span class="info-box-number">0</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+		<div class="col-md-4 col-sm-6 col-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-info">
+					<i class="fa  fa-check"></i>
+				</span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Active Appointments</span>
+					<span class="info-box-number">{{appointment_count}}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+			<!-- /.info-box -->
+		</div>
+		<!-- /.col -->
+	</div>
+ 
+{% endblock %}

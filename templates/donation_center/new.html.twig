@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DonationCenter{% endblock %}
+
+{% block body %}
+   <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('donation_center_index') }}">Back To list</a>
+			
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+
+    {{ include('donation_center/_form.html.twig') }}
+</div>
+</div>
+{% endblock %}

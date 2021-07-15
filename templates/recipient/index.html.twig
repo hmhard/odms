@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipients List
+{% endblock %}
+{% block maintitle %}Recipients List
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary float-right" href="{{ path('recipient_new') }}">Create new</a>
+			<h3 class="card-title">
+				Recipients List(Total:{{recipients.getTotalItemCount}})
+			</h3>
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Phone</th>
+						<th>Organ Needed</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for recipient in recipients %}
+						<tr>
+							<td>{{ recipient.id }}</td>
+							<td>{{ recipient.user }}</td>
+							<td>{{ recipient.user.phone }}</td>
+							<td>{{ recipient.organNeeded }}</td>
+							<td>
+								<a href="{{ path('recipient_show', {'id': recipient.id}) }}">show</a>
+								<a href="{{ path('recipient_edit', {'id': recipient.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+            	<div class="float-right" id="custompaginator">{{ knp_pagination_render(recipients) }}</div>
+		
+	</div>
+</div>{% endblock %}

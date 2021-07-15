@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organ Type Info{% endblock %}
+{% block maintitle %}Organ Type Info{% endblock %}
+
+{% block body %}
+    <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('organ_type_index') }}">Back</a>
+			
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+    <table class="table">
+        <tbody>
+          
+            <tr>
+                <th>Name</th>
+                <td>{{ organ_type.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ organ_type.description }}</td>
+            </tr>
+            <tr>
+                <th>RegisteredAt</th>
+                <td>{{ organ_type.registeredAt ? organ_type.registeredAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+ 
+    <a href="{{ path('organ_type_edit', {'id': organ_type.id}) }}">edit</a>
+
+    {{ include('organ_type/_delete_form.html.twig') }}
+{% endblock %}

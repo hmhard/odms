@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blood Type List{% endblock %}
+{% block maintitle %}Blood Type List{% endblock %}
+
+{% block body %}
+  <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary float-right" href="{{ path('blood_type_new') }}">Create new</a>
+			<h3 class="card-title">
+				Blood Type List
+			</h3>
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blood_type in blood_types %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ blood_type.name }}</td>
+                <td>{{ blood_type.description }}</td>
+                <td>
+                    <a href="{{ path('blood_type_show', {'id': blood_type.id}) }}">show</a>
+                    <a href="{{ path('blood_type_edit', {'id': blood_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

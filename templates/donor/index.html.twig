@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donors List
+{% endblock %}
+{% block maintitle %}Donors List
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary float-right" href="{{ path('donor_new') }}">Create new</a>
+			<h3 class="card-title">
+				Donor List(Total:{{donors.getTotalItemCount}})
+			</h3>
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Phone</th>
+						<th>Organ</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for donor in donors %}
+						<tr>
+							<td>{{ donor.id }}</td>
+							<td>{{ donor.user }}</td>
+							<td>{{ donor.user.phone }}</td>
+							<td>{{ donor.organ }}</td>
+							<td>
+								<a href="{{ path('donor_show', {'id': donor.id}) }}">show</a>
+								<a href="{{ path('donor_edit', {'id': donor.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="float-right" id="custompaginator">{{ knp_pagination_render(donors) }}</div>
+		</div>
+
+</div>{% endblock %}

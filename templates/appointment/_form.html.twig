@@ -1,0 +1,44 @@
+{{ form_start(form,{'attr': {'role':'form'}}) }}
+
+<div class="row">
+
+	<div class="form-group col-4">
+		<label class="control-label no-padding-right">{{ form_label(form.appointmentDate) }}</label>
+		{{ form_widget(form.appointmentDate,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="form-group col-4">
+		<label class="control-label no-padding-right">{{ form_label(form.appointedBy) }}</label>
+		{{ form_widget(form.appointedBy,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="form-group col-4">
+		<label class="control-label no-padding-right">{{ form_label(form.donor) }}</label>
+		{{ form_widget(form.donor,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="form-group col-4">
+		<label class="control-label no-padding-right">{{ form_label(form.recipient) }}</label>
+		{{ form_widget(form.recipient,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	
+
+</div>
+
+
+{% if not button_label is defined  %}
+	<button class="btn btn-info float-right">{{ button_label|default('Save') }}</button>
+	<button class="btn  btn-warning float-right " style="margin-right:20px;" type="reset">Reset</button>
+
+{% else %}
+
+	<button class="btn btn-success mx-2 float-right">{{ button_label|default('Save') }}</button>
+	<a href="{{ path('user_index') }}" class="btn btn-primary float-right mx-3">
+		Cancel
+	</a>
+
+{% endif %}
+
+
+{{ form_end(form) }}

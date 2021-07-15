@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donation Center Info{% endblock %}
+{% block maintitle %}Donation Center Info{% endblock %}
+
+{% block body %}
+    <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('donation_center_index') }}">Back To list</a>
+			
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+    <table class="table">
+        <tbody>
+          
+            <tr>
+                <th>Name</th>
+                <td>{{ donation_center.name }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ donation_center.address }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ donation_center.photo }}</td>
+            </tr>
+            <tr>
+                <th>Registered At</th>
+                <td>{{ donation_center.registeredAt ? donation_center.registeredAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated At</th>
+                <td>{{ donation_center.updatedAt ? donation_center.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ donation_center.location }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+   
+
+    {{ include('donation_center/_delete_form.html.twig') }}
+    <a class="btn btn-warning float-right mx-3" href="{{ path('donation_center_edit', {'id': donation_center.id}) }}">edit</a>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Blood Type {% endblock %}
+
+{% block body %}
+   <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('blood_type_index') }}">Back To list</a>
+			
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+    {{ include('blood_type/_form.html.twig') }}
+    </div>
+    </div>
+{% endblock %}

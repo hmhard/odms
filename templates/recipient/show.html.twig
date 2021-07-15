@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipient
+{% endblock %}
+{% block maintitle %}Recipient Info
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('recipient_index') }}">Back to list</a>
+			<h3 class="card-title"></h3>
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+			<table class="table">
+				<tbody>
+
+					<tr>
+						<th>Name</th>
+
+
+						<td>{{ recipient.user }}</td>
+
+						<th>Phone</th>
+
+						<td>{{ recipient.user.phone }}</td>
+					</tr>
+					<tr>
+						<th>Organ Needed</th>
+						<td>{{ recipient.organNeeded }}</td>
+
+						<th>Blood Type</th>
+						<td>{{ recipient.bloodType }}</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			{{ include('recipient/_delete_form.html.twig') }}
+			<a class=" btn btn-warning float-right mx-3" href="{{ path('recipient_edit', {'id': recipient.id}) }}">Edit</a>
+
+		{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appointments List{% endblock %}
+{% block maintitle %}Appointments List{% endblock %}
+
+{% block body %}
+    
+	<div class="card">
+
+		<div class="card-header">
+          <a class="btn btn-primary float-right" href="{{ path('appointment_new') }}">Create new</a>
+			<h3 class="card-title">
+				Appointment List(Total:{{appointments.getTotalItemCount}})
+			</h3>
+			<div class="card-tools">
+			
+			</div>
+		</div>
+		<div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Appointed By</th>
+                <th>Appoitment</th>
+                <th>Appointment Date</th>
+                <th>Status</th>
+                <th>Created At</th>
+              
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.appointedBy }}</td>
+                <td>{{ appointment.donor ?:appointment.recipient }}<span class="badge badge-info">{{ appointment.donor ?"donor":"recipient" }}</span></td>
+                <td>{{ appointment.appointmentDate ? appointment.appointmentDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td><span class="badge badge-success">{{ appointment.status == 2 ?"proccessed":"active" }}</span></td>
+                <td>{{ appointment.createdAt ? appointment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('appointment_show', {'id': appointment.id}) }}">show</a>
+                    <a href="{{ path('appointment_edit', {'id': appointment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ 
+{% endblock %}

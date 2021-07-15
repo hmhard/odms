@@ -1,0 +1,35 @@
+
+		<li class="nav-item">
+				<a href="{{ path('dashboard')}}" class="nav-link">
+					<i class="fa fa-tachometer-alt nav-icon"></i>
+					<p>Dashboard</p>
+				</a>
+			</li>
+	
+		{% if is_granted("SUPER_ADMIN") %}
+
+			<li class="nav-item">
+				<a href="{{ path('user_index')}}" class="nav-link">
+					<i class="fa fa-tasks nav-icon"></i>
+					<p>User List</p>
+				</a>
+			</li>
+		{% endif %}
+		{% if is_granted("SUPER_ADMIN") %}
+			<li class="nav-item">
+				<a href="{{ path('user_group_index')}}" class="nav-link">
+					<i class="fa fa-users nav-icon"></i>
+					<p>User Group</p>
+				</a>
+			</li>
+		{% endif %}
+		{% if is_granted("SUPER_ADMIN") %}
+			<li class="nav-item">
+				<a href="{{ path('permission_index')}}" class="nav-link">
+					<i class="fa fa-key nav-icon"></i>
+					<p>Permissions</p>
+				</a>
+			</li>
+		{% endif %}
+
+

@@ -1,0 +1,154 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-white     sidebar-light-blue">
+	{# class="main-sidebar sidebar-dark-primary elevation-4"> #}
+	<!-- Brand Logo -->
+		<a href="#" class="brand-link navbar-lightblue"> <img src="{{asset('assets/dist/img/julogo.png')}}" height="100" width="80" alt="JU logo" class="brand-image img-circle elevation-5" style="opacity: .8">
+		<span class="brand-text font-weight-light">ODMS</span>
+	</a>
+	{% block sidebar %}
+		<!-- Sidebar -->
+		<div
+			class="sidebar">
+			<!-- Sidebar user panel (optional) -->
+			{% if app.user %}
+
+				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+					<div class="image">
+
+						<img src="{{asset('assets/dist/img/julogo.png')}}" class="img-circle elevation-2" alt="User Image">
+
+
+					</div>
+					<div class="info">
+						<a href="#" class="d-block">{{app.user}}
+						</a>
+
+
+					</div>
+				</div>
+			{% endif %}
+
+
+			<!-- Sidebar Menu -->
+			<nav class="mt-2">
+				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+
+					<li class="nav-item">
+						<a href="{{ path('dashboard')}}" class="nav-link">
+							<i class="fa fa-tachometer-alt nav-icon"></i>
+							<p>Dashboard</p>
+						</a>
+					</li>
+
+					<li class="nav-item has-treeview">
+						<a href="#" class="nav-link">
+							<i class="nav-icon fa fa-users"></i>
+							<p>
+								User Management
+								<i class="right fa fa-angle-left"></i>
+							</p>
+						</a>
+						<ul class="nav nav-treeview">
+
+
+							<li class="nav-item">
+								<a href="{{ path('user_index')}}" class="nav-link">
+									<i class="fa fa-tasks nav-icon"></i>
+									<p>User List</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ path('user_group_index')}}" class="nav-link">
+									<i class="fa fa-users nav-icon"></i>
+									<p>User Group</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ path('permission_index')}}" class="nav-link">
+									<i class="fa fa-key nav-icon"></i>
+									<p>Permissions</p>
+								</a>
+							</li>
+
+
+						</ul>
+					</li>
+					<li class="nav-item has-treeview">
+						<a href="#" class="nav-link">
+							<i class="nav-icon fa fa-donate"></i>
+							<p>
+								Donation
+								<i class="right fa fa-angle-left"></i>
+							</p>
+						</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ path('recipient_index')}}" class="nav-link">
+									<i class="fa fa-user nav-icon"></i>
+									<p>Recipients</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ path('donor_index')}}" class="nav-link">
+									<i class="fa fa-user nav-icon"></i>
+									<p>Donors</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ path('appointment_index')}}" class="nav-link">
+									<i class="fa fa-calendar nav-icon"></i>
+									<p>Appoitments</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="fa fa-list nav-icon"></i>
+									<p>Donation</p>
+								</a>
+							</li>
+
+
+						</ul>
+					</li>
+					<li class="nav-item has-treeview">
+						<a href="#" class="nav-link">
+							<i class="nav-icon fa fa-list"></i>
+							<p>
+								Settings
+								<i class="right fa fa-angle-left"></i>
+							</p>
+						</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ path('blood_type_index')}}" class="nav-link">
+									<i class="fa fa-heart nav-icon"></i>
+									<p>Blood Type</p>
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a href="{{ path('organ_type_index')}}" class="nav-link">
+									<i class="fa fa-heart-broken nav-icon"></i>
+									<p>Organ Type</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ path('donation_center_index')}}" class="nav-link">
+									<i class="fa fa-hospital nav-icon"></i>
+									<p>Donation Center</p>
+								</a>
+							</li>
+
+						</ul>
+					</li>
+
+
+				</ul>
+
+			</nav>
+			<!-- /.sidebar-menu -->
+		</div>
+	{% endblock %}
+	<!-- /.sidebar -->
+</aside>

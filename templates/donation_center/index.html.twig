@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donation Centers List{% endblock %}
+{% block maintitle %}Donation Centers List{% endblock %}
+
+{% block body %}
+  <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary float-right" href="{{ path('donation_center_new') }}">Create new</a>
+			<h3 class="card-title">
+				Donor List(Total:0)
+			</h3>
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Address</th>
+              
+                <th>Registered At</th>
+               
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for donation_center in donation_centers %}
+            <tr>
+                <td>{{ donation_center.id }}</td>
+                <td>{{ donation_center.name }}</td>
+                <td>{{ donation_center.address }}</td>
+               
+                <td>{{ donation_center.registeredAt ? donation_center.registeredAt|date('Y-m-d H:i:s') : '' }}</td>
+             
+                <td>
+                    <a href="{{ path('donation_center_show', {'id': donation_center.id}) }}">show</a>
+                    <a href="{{ path('donation_center_edit', {'id': donation_center.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="float-right" id="custompaginator">{{ knp_pagination_render(donation_centers) }}</div>
+
+</div>
+</div>
+{% endblock %}

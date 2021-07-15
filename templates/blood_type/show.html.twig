@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blood Type Info{% endblock %}
+{% block maintitle %}Blood Type Info{% endblock %}
+
+{% block body %}
+   <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('blood_type_index') }}">Back</a>
+			
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+    <table class="table">
+        <tbody>
+         
+            <tr>
+                <th>Name</th>
+                <td>{{ blood_type.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ blood_type.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+  
+    <a href="{{ path('blood_type_edit', {'id': blood_type.id}) }}">edit</a>
+
+    {{ include('blood_type/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Appointment{% endblock %}
+{% block maintitle %}New Appointment{% endblock %}
+
+{% block body %}
+ 	<div class="card">
+
+		<div class="card-header">
+          <a class="btn btn-primary float-right" href="{{ path('appointment_index') }}">Back to list</a>
+			
+			<div class="card-tools">
+			
+			</div>
+		</div>
+		<div class="card-body">
+
+    {{ include('appointment/_form.html.twig') }}
+</div>
+</div>
+{% endblock %}

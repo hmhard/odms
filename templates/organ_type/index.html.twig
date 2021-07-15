@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organ Type List{% endblock %}
+{% block maintitle %}Organ Type List{% endblock %}
+
+{% block body %}
+      <div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary float-right " href="{{ path('organ_type_new') }}">Create</a>
+			
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Registered At</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for organ_type in organ_types %}
+            <tr>
+                <td>{{ organ_type.id }}</td>
+                <td>{{ organ_type.name }}</td>
+                <td>{{ organ_type.description }}</td>
+                <td>{{ organ_type.registeredAt ? organ_type.registeredAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('organ_type_show', {'id': organ_type.id}) }}">show</a>
+                    <a href="{{ path('organ_type_edit', {'id': organ_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

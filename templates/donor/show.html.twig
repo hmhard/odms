@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donor Info
+{% endblock %}
+{% block maintitle %}donor Info
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+
+		<div class="card-header">
+			<a class="btn btn-primary " href="{{ path('donor_index') }}">Back to list</a>
+			<h3 class="card-title"></h3>
+			<div class="card-tools"></div>
+		</div>
+		<div class="card-body">
+
+			<table class="table">
+				<tbody>
+
+					<tr>
+						<th>Name</th>
+
+
+						<td>{{ donor.user }}</td>
+
+						<th>Phone</th>
+
+						<td>{{ donor.user.phone }}</td>
+					</tr>
+					<tr>
+						<th>Organ Needed</th>
+						<td>{{ donor.organ}}</td>
+
+						{# <th>Blood Type</th>
+						<td>{{ donor.bloodType }}</td> #}
+					</tr>
+					
+				</tbody>
+			</table>
+
+
+			{{ include('donor/_delete_form.html.twig') }}
+			<a class=" btn btn-warning float-right mx-3" href="{{ path('donor_edit', {'id': donor.id}) }}">Edit</a>
+			<a class=" btn btn-info float-right mx-3" href="{{ path('donor_edit', {'id': donor.id}) }}">Appoint</a>
+
+		{% endblock %}
