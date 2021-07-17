@@ -25,7 +25,7 @@ class UserApi extends AbstractController
 
 
     #[Route('/login', name: 'user_login_api', methods: ['GET', 'POST'])]
-    public function login(Request $request, UserPasswordHasherInterface $passwordHasherInterface)
+    public function login(Request $request,DonorRepository $donorRepository,RecipientRepository $recipientRepository, UserPasswordHasherInterface $passwordHasherInterface)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -39,17 +39,35 @@ class UserApi extends AbstractController
             return     $this->json(["success" => false, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
         }
 
+        $donor=$donorRepository->findOneBy(["user"=>$user]);
+        if($donor){
 
-        $response = [
-            "success" => true,
-            "message" => "Authenticated Successfully",
-            "data" => [
-                "user_id" => $user->getId(),
-                "first_name" => $user->getFirstName(),
-                "middle_name" => $user->getMiddleName(),
+            $response = [
+                "success" => true,
+                "message" => "Authenticated Successfully",
+                "data" => [
+                    "user_id" => $user->getId(),
+                    "donor_id" => $donor->getId(),
+                 
+    
+                ]
+            ];
+        }
+        else{
+            $recipient=$recipientRepository->findOneBy(["user"=>$user]);
 
-            ]
-        ];
+            $response = [
+                "success" => true,
+                "message" => "Authenticated Successfully",
+                "data" => [
+                    "user_id" => $user->getId(),
+                    "recipient_id" => $recipient->getId(),
+           
+                ]
+            ];
+        }
+
+
         return $this->json($response, 200);
     }
     #[Route('/create', name: 'user_create_api', methods: ['GET', 'POST'])]

@@ -60,13 +60,13 @@ class DonorRepository extends ServiceEntityRepository
   
     public function getSingleData($filter=[])
     {
-        return $this->createQueryBuilder('r')
-           ->join("r.user","u")
-           ->join("r.organ","o")
-           ->join("r.bloodType","bt")
-        ->andWhere("r.id = :id")
+        return $this->createQueryBuilder('d')
+           ->join("d.user","u")
+           ->join("d.organ","o")
+        //    ->join("r.bloodType","bt")
+        ->andWhere("d.id = :id")
         ->setParameter("id",$filter['id'])
-           ->select("r.id as donor_id, u.id as user_id, u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name, bt.name as bloodType")
+           ->select("d.id as donor_id, u.id as user_id, u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name")
             ->getQuery()
             ->getOneOrNullResult()
         ;

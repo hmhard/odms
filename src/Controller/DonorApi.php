@@ -81,22 +81,26 @@ class DonorApi extends AbstractController
         ];
         return $this->json($response, 200);
     }
-    #[Route('/{id}', name: 'donor_show_api', methods: ['GET', 'POST'])]
-    public function show(Donor $donor, Request $request)
+    #[Route('/show', name: 'donor_show_api', methods: ['GET', 'POST'])]
+    public function show(DonorRepository $donorRepository, Request $request)
     {
 
-        $response = [
-            "success" => true,
-            "message" => "fetched",
-            "data" => [
-                "donor_id" => $donor->getId(),
-                "user_id" => $donor->getUser()->getId(),
-                "first_name" => $donor->getUser()->getFirstName(),
-                "middle_name" => $donor->getUser()->getMiddleName(),
 
-            ]
-        ];
-        return $this->json($response, 200);
+        try {
+
+            $id = json_decode($request->getContent(), true)['id'];
+            
+                
+            } catch (\Throwable $th) {
+               
+            }
+        
+            $response = [
+                "success" => true,
+                "message" => "fetched",
+                "data" =>$donorRepository->getSingleData(["id"=>$id])
+            ];
+            return $this->json($response, 200);
     }
     #[Route('/', name: 'donor_index_api', methods: ['GET', 'POST'])]
     public function index(Request $request, DonorRepository $donorRepository)
