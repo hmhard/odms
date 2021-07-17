@@ -41,7 +41,7 @@ class RecipientApi extends AbstractController
         $user->setSex($data['sex']);
         $user->setPhone($data['phone']);
         $user->setPassword($passwordHasherInterface->hashPassword($user, $data['password']));
-        $user->setBirthDate(new \DateTime());
+        $user->setBirthDate(new \DateTime($data['birth_date']));
         $user->setUserType($em->getRepository(UserType::class)->find(UserType::USER_TYPE_CLIENT));
         $this->getDoctrine()->getManager();
 
@@ -75,24 +75,28 @@ class RecipientApi extends AbstractController
             "data" => [
                 "user_id" => $user->getId(),
                 "recipient_id" => $recipient->getId(),
+                "data" => $data['birth_date'],
             ]
         ];
         return $this->json($response, 200);
     }
-    #[Route('/{id}', name: 'recipient_show_api', methods: ['GET', 'POST'])]
-    public function show(Recipient $recipient, Request $request)
+    #[Route('/show', name: 'recipient_show_api', methods: ['GET', 'POST'])]
+    public function show(RecipientRepository $recipientRepository, Request $request)
     {
 
+        try {
+
+        $id = json_decode($request->getContent(), true)['id'];
+        
+            
+        } catch (\Throwable $th) {
+           
+        }
+    
         $response = [
             "success" => true,
             "message" => "fetched",
-            "data" => [
-                "recipient_id" => $recipient->getId(),
-                "user_id" => $recipient->getUser()->getId(),
-                "first_name" => $recipient->getUser()->getFirstName(),
-                "middle_name" => $recipient->getUser()->getMiddleName(),
-
-            ]
+            "data" =>$recipientRepository->getSingleData(["id"=>$id])
         ];
         return $this->json($response, 200);
     }

@@ -50,9 +50,23 @@ class RecipientRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
            ->join("r.user","u")
            ->join("r.organNeeded","o")
-           ->select("u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name")
+           ->join("r.bloodType","bt")
+           ->select("u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name, bt.name as bloodType")
             ->getQuery()
             ->getArrayResult()
+        ;
+    }
+    public function getSingleData($filter=[])
+    {
+        return $this->createQueryBuilder('r')
+           ->join("r.user","u")
+           ->join("r.organNeeded","o")
+           ->join("r.bloodType","bt")
+        ->andWhere("r.id = :id")
+        ->setParameter("id",$filter['id'])
+           ->select("r.id as recipient_id, u.id as user_id, u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name, bt.name as bloodType")
+            ->getQuery()
+            ->getOneOrNullResult()
         ;
     }
   

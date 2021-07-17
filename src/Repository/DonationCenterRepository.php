@@ -28,6 +28,29 @@ class DonationCenterRepository extends ServiceEntityRepository
          
         ;
     }
+
+
+    public function getDonationCenterList($filter=[])
+    {
+        return $this->createQueryBuilder('d')
+      
+           ->select("d.name, d.address, d.location, d.photo , d.description")
+            ->getQuery()
+            ->getArrayResult()
+        ;
+    }
+    public function getSingleData($filter=[])
+    {
+        return $this->createQueryBuilder('d')
+         
+        ->andWhere("d.id = :id")
+        ->setParameter("id",$filter['id'])
+        ->select("d.name, d.address, d.location, d.photo , d.description") 
+           ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+  
   
 
     // /**
