@@ -49,8 +49,8 @@ class RecipientApi extends AbstractController
         $em->persist($user);
 
         $recipient = new Recipient();
-        $recipient->setOrganNeeded($em->getRepository(OrganType::class)->find(1));
-        $recipient->setBloodType($em->getRepository(BloodType::class)->find(1));
+        $recipient->setOrganNeeded($em->getRepository(OrganType::class)->find($data['organ']));
+        $recipient->setBloodType($em->getRepository(BloodType::class)->find($data['blood_type']));
         $recipient->setUser($user);
 
         $em->persist($recipient);

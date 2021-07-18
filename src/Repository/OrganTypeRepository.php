@@ -18,7 +18,14 @@ class OrganTypeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, OrganType::class);
     }
-
+    public function getOrganList($filter = [])
+    {
+        return $this->createQueryBuilder('b')
+            
+            ->select("b.id, b.name")
+            ->getQuery()
+            ->getArrayResult();
+    }
     // /**
     //  * @return OrganType[] Returns an array of OrganType objects
     //  */

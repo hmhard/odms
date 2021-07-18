@@ -17,6 +17,7 @@ class DonationCenterType extends AbstractType
             ->add('photo')
          
             ->add('location')
+            ->add('description')
         ;
     }
 

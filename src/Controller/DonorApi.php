@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\BloodType;
 use App\Entity\Donor;
 use App\Entity\OrganType;
 use App\Entity\User;
@@ -45,7 +46,8 @@ class DonorApi extends AbstractController
             $em->persist($user);
 
             $donor = new Donor();
-            $donor->setOrgan($em->getRepository(OrganType::class)->find(1));
+            $donor->setOrgan($em->getRepository(OrganType::class)->find($data['organ']));
+            $donor->setBloodType($em->getRepository(BloodType::class)->find($data['blood_type']));
             $donor->setUser($user);
 
             $em->persist($donor);

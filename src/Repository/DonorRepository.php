@@ -52,7 +52,8 @@ class DonorRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
             ->join("d.user", "u")
             ->join("d.organ", "o")
-            ->select("u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name")
+            ->join("d.bloodType", "bt")
+            ->select("u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name, bt.name as bloodType")
             ->getQuery()
             ->getArrayResult();
     }
@@ -63,10 +64,11 @@ class DonorRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
            ->join("d.user","u")
            ->join("d.organ","o")
+           ->join("d.bloodType","bt")
         //    ->join("r.bloodType","bt")
         ->andWhere("d.id = :id")
         ->setParameter("id",$filter['id'])
-           ->select("d.id as donor_id, u.id as user_id, u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name")
+           ->select("d.id as donor_id, u.id as user_id, u.firstName,u.middleName,u.lastName,u.sex,u.phone,u.email,o.name as organ_name, bt.name as bloodType")
             ->getQuery()
             ->getOneOrNullResult()
         ;

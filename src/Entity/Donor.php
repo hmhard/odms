@@ -41,6 +41,12 @@ class Donor
      */
     private $appointments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=BloodType::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $bloodType;
+
     public function __construct()
     {
         
@@ -137,6 +143,18 @@ class Donor
                 $appointment->setDonor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBloodType(): ?BloodType
+    {
+        return $this->bloodType;
+    }
+
+    public function setBloodType(?BloodType $bloodType): self
+    {
+        $this->bloodType = $bloodType;
 
         return $this;
     }

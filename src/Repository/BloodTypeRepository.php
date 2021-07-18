@@ -18,6 +18,14 @@ class BloodTypeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BloodType::class);
     }
+    public function getBloodList($filter = [])
+    {
+        return $this->createQueryBuilder('b')
+            
+            ->select("b.id, b.name")
+            ->getQuery()
+            ->getArrayResult();
+    }
 
     // /**
     //  * @return BloodType[] Returns an array of BloodType objects
