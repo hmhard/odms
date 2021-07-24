@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\BloodType;
+use App\Entity\DonationCenter;
 use App\Entity\Donor;
 use App\Entity\OrganType;
 use App\Entity\User;
@@ -36,6 +37,8 @@ class DonorApi extends AbstractController
             $user->setLastName($data['last_name']);
             $user->setEmail($data['email']);
             $user->setSex($data['sex']);
+            $user->setType(1);
+           
             $user->setPhone($data['phone']);
             $user->setPassword($passwordHasherInterface->hashPassword($user, $data['password']));
             $user->setBirthDate(new \DateTime());
@@ -78,6 +81,52 @@ class DonorApi extends AbstractController
             "message" => "registered Successfully",
             "data" => [
                 "user_id" => $user->getId(),
+                "donor_id" => $donor->getId(),
+            ]
+        ];
+        return $this->json($response, 200);
+    }
+
+    #[Route('/dcenter', name: 'donor_dcenter_api', methods: ['GET', 'POST'])]
+    public function getDonationCenterSelection(Request $request, UserPasswordHasherInterface $passwordHasherInterface)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        try {
+            $data = json_decode($request->getContent(), true);
+
+          
+
+            $donor =$em->getRepository(Donor::class)->find($data['donor_id']);
+           $donor->setDonationCenter($em->getRepository(DonationCenter::class)->find($data['donation_center_id']));
+
+            $em->flush();
+        } 
+        catch(UniqueConstraintViolationException $e){
+         
+            $response = [
+                "success" => false,
+                "message" => "the email has already been used",
+                "data" => $data
+            ];
+            return $this->json($response, Response::HTTP_BAD_REQUEST);
+        }
+        catch (\Throwable $th) {
+
+            $response = [
+                "success" => false,
+                "message" => $th->getMessage(),
+                "data" => $data
+            ];
+            return $this->json($response, Response::HTTP_BAD_REQUEST);
+        }
+
+
+        $response = [
+            "success" => true,
+            "message" => "registered Successfully",
+            "data" => [
+             
                 "donor_id" => $donor->getId(),
             ]
         ];

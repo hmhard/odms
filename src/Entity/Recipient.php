@@ -46,6 +46,11 @@ class Recipient
      */
     private $appointments;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->donations = new ArrayCollection();
@@ -153,6 +158,18 @@ class Recipient
                 $appointment->setRecipient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

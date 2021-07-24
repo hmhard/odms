@@ -44,4 +44,4 @@ security:
         #  - { path: ^/hr-api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #  - { path: ^/srs-api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #  - { path: ^/user-api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #  - { path: ^/*, roles: ROLE_USER }
+         - { path: ^/*, roles: ROLE_USER }

@@ -47,6 +47,16 @@ class Donor
      */
     private $bloodType;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=DonationCenter::class, inversedBy="donors")
+     */
+    private $donationCenter;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
     public function __construct()
     {
         
@@ -155,6 +165,30 @@ class Donor
     public function setBloodType(?BloodType $bloodType): self
     {
         $this->bloodType = $bloodType;
+
+        return $this;
+    }
+
+    public function getDonationCenter(): ?DonationCenter
+    {
+        return $this->donationCenter;
+    }
+
+    public function setDonationCenter(?DonationCenter $donationCenter): self
+    {
+        $this->donationCenter = $donationCenter;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -39,6 +39,7 @@ class RecipientApi extends AbstractController
         $user->setLastName($data['last_name']);
         $user->setEmail($data['email']);
         $user->setSex($data['sex']);
+        $user->setType(2);
         $user->setPhone($data['phone']);
         $user->setPassword($passwordHasherInterface->hashPassword($user, $data['password']));
         $user->setBirthDate(new \DateTime($data['birth_date']));

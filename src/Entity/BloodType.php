@@ -26,6 +26,8 @@ class BloodType
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    
 public function __toString()
 {
     return $this->name;

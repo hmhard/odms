@@ -52,6 +52,21 @@ class Donation
      */
     private $processedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $followedBy;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $donorStatus;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $recipientStatus;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +140,42 @@ class Donation
     public function setProcessedAt(\DateTimeImmutable $processedAt): self
     {
         $this->processedAt = $processedAt;
+
+        return $this;
+    }
+
+    public function getFollowedBy(): ?User
+    {
+        return $this->followedBy;
+    }
+
+    public function setFollowedBy(?User $followedBy): self
+    {
+        $this->followedBy = $followedBy;
+
+        return $this;
+    }
+
+    public function getDonorStatus(): ?string
+    {
+        return $this->donorStatus;
+    }
+
+    public function setDonorStatus(?string $donorStatus): self
+    {
+        $this->donorStatus = $donorStatus;
+
+        return $this;
+    }
+
+    public function getRecipientStatus(): ?string
+    {
+        return $this->recipientStatus;
+    }
+
+    public function setRecipientStatus(?string $recipientStatus): self
+    {
+        $this->recipientStatus = $recipientStatus;
 
         return $this;
     }

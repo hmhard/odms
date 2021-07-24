@@ -66,6 +66,10 @@ class Appointment
         $this->createdAt=new \DateTime('now');
         $this->appointmentConversations = new ArrayCollection();
     }
+    public function __toString()
+    {
+       return $this->appointmentDate->format("F j Y, H:iA");
+    }
 
     public function getId(): ?int
     {

@@ -110,6 +110,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $birthDate;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $type;
+
 
 
 
@@ -136,9 +141,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getFullName()
     {
         
-   return $this->firstName." ".$this->middleName." ".$this->lastName;
+   return ucwords($this->firstName." ".$this->middleName." ".$this->lastName);
     }
 
+   
     public function getEmail(): ?string
     {
         return $this->email;
@@ -424,6 +430,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBirthDate(\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(?int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

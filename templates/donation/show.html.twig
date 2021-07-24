@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donation{% endblock %}
+{% block maintitle %}Donation{% endblock %}
+
+{% block body %}
+  	<div class="card">
+
+		<div class="card-header">
+          <a class="btn btn-primary float-right" href="{{ path('donation_index') }}">Back</a>
+		
+			<div class="card-tools">
+			
+			</div>
+		</div>
+		<div class="card-body">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Donation CODE</th>
+                <td>{{"DON-"~ donation.id }}</td>
+            </tr>
+            <tr>
+                <th>Donation Center</th>
+                <td>{{ donation.donationCenter }}</td>
+            </tr>
+            <tr>
+                <th>Donor</th>
+                <td>{{ donation.donor }}</td>
+            </tr>
+            <tr>
+                <th>Recipient</th>
+                <td>{{ donation.recipient }}</td>
+            </tr>
+            <tr>
+                <th>Processed By(Doctor)</th>
+                <td>{{ donation.processedBy }}</td>
+            </tr>
+            <tr>
+                <th>Followed By</th>
+                <td>{{ donation.followedBy?:"not approved yet" }}</td>
+            </tr>
+            <tr>
+                <th>Donor Status</th>
+                <td>{{ donation.donorStatus }}</td>
+            </tr>
+            <tr>
+                <th>Recipient Status</th>
+                <td>{{ donation.recipientStatus }}</td>
+            </tr>
+            <tr>
+                <th>Done At</th>
+                <td>{{ donation.processedAt ? donation.processedAt|date('F d Y H:iA') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('donation_edit', {'id': donation.id}) }}">edit</a> #}
+
+    {# {{ include('donation/_delete_form.html.twig') }} #}
+{% endblock %}

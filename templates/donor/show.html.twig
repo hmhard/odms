@@ -32,16 +32,60 @@
 						<th>Organ Needed</th>
 						<td>{{ donor.organ}}</td>
 
-						{# <th>Blood Type</th>
-						<td>{{ donor.bloodType }}</td> #}
+						<th>Blood Type</th>
+						
+						<td>{{donor.bloodType}}</td>
+					</tr>
+					
+					<tr>
+						<th>Donation Center</th>
+						<td>{{ donor.donationCenter ? :"Not Selected Yet"}}</td>
+
+						<th>Appointment Date</th>
+						
 					</tr>
 					
 				</tbody>
 			</table>
+			Appoitments
+
+			    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Appointed By</th>
+               
+                <th>Appointment Date</th>
+                <th>Status</th>
+                <th>Created At</th>
+              
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment in donor.appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.appointedBy }}</td>
+
+				<td>{{ appointment.appointmentDate ? appointment.appointmentDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td><span class="badge badge-success">{{ appointment.status == 2 ?"proccessed":"active" }}</span></td>
+                <td>{{ appointment.createdAt ? appointment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 
 			{{ include('donor/_delete_form.html.twig') }}
 			<a class=" btn btn-warning float-right mx-3" href="{{ path('donor_edit', {'id': donor.id}) }}">Edit</a>
-			<a class=" btn btn-info float-right mx-3" href="{{ path('donor_edit', {'id': donor.id}) }}">Appoint</a>
+			{# <a class=" btn btn-info float-right mx-3" href="{{ path('donor_edit', {'id': donor.id}) }}">Appoint</a> #}
 
 		{% endblock %}

@@ -18,6 +18,16 @@ class DonationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Donation::class);
     }
+    public function getData($filter=[])
+    {
+        return $this->createQueryBuilder('d')
+          
+            ->orderBy('d.id', 'ASC')
+          
+            ->getQuery()
+         
+        ;
+    }
 
     public function getCount($filter=[])
     {

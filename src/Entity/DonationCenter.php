@@ -59,10 +59,20 @@ class DonationCenter
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Donor::class, mappedBy="donationCenter")
+     */
+    private $donors;
+
     public function __construct()
     {
         $this->registeredAt= new \DateTime('now');
         $this->donationCenterDonations = new ArrayCollection();
+        $this->donors = new ArrayCollection();
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -180,6 +190,36 @@ class DonationCenter
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Donor[]
+     */
+    public function getDonors(): Collection
+    {
+        return $this->donors;
+    }
+
+    public function addDonor(Donor $donor): self
+    {
+        if (!$this->donors->contains($donor)) {
+            $this->donors[] = $donor;
+            $donor->setDonationCenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonor(Donor $donor): self
+    {
+        if ($this->donors->removeElement($donor)) {
+            // set the owning side to null (unless already changed)
+            if ($donor->getDonationCenter() === $this) {
+                $donor->setDonationCenter(null);
+            }
+        }
 
         return $this;
     }
