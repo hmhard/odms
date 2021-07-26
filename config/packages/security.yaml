@@ -41,7 +41,5 @@ security:
          - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/reset-password/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #  - { path: ^/hr-api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #  - { path: ^/srs-api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #  - { path: ^/user-api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/*, roles: ROLE_USER }

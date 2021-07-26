@@ -10,6 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Donation
 {
+    const DONATION_CREATED=0;
+    const DONATION_DONE=1;
+    const DONATION_CANCELLED=2;
+    const DONATION_APPROVED=3;
+    const DONATION_FINISHED=4;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -66,6 +71,36 @@ class Donation
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $recipientStatus;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $followerFeedback;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $donorFeedback;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $recipientFeedback;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $doctorFeedback;
+
+    public function __construct()
+    {
+        $this->status = 0;
+    }
 
     public function getId(): ?int
     {
@@ -176,6 +211,66 @@ class Donation
     public function setRecipientStatus(?string $recipientStatus): self
     {
         $this->recipientStatus = $recipientStatus;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getFollowerFeedback(): ?string
+    {
+        return $this->followerFeedback;
+    }
+
+    public function setFollowerFeedback(?string $followerFeedback): self
+    {
+        $this->followerFeedback = $followerFeedback;
+
+        return $this;
+    }
+
+    public function getDonorFeedback(): ?string
+    {
+        return $this->donorFeedback;
+    }
+
+    public function setDonorFeedback(?string $donorFeedback): self
+    {
+        $this->donorFeedback = $donorFeedback;
+
+        return $this;
+    }
+
+    public function getRecipientFeedback(): ?string
+    {
+        return $this->recipientFeedback;
+    }
+
+    public function setRecipientFeedback(?string $recipientFeedback): self
+    {
+        $this->recipientFeedback = $recipientFeedback;
+
+        return $this;
+    }
+
+    public function getDoctorFeedback(): ?string
+    {
+        return $this->doctorFeedback;
+    }
+
+    public function setDoctorFeedback(?string $doctorFeedback): self
+    {
+        $this->doctorFeedback = $doctorFeedback;
 
         return $this;
     }

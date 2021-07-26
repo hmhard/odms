@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Appointment;
 use App\Entity\BloodType;
 use App\Entity\DonationCenter;
 use App\Entity\Donor;
@@ -9,6 +10,7 @@ use App\Entity\OrganType;
 use App\Entity\User;
 use App\Entity\UserType;
 use App\Form\DonorType;
+use App\Repository\AppointmentRepository;
 use App\Repository\DonorRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,10 +40,10 @@ class DonorApi extends AbstractController
             $user->setEmail($data['email']);
             $user->setSex($data['sex']);
             $user->setType(1);
-           
+
             $user->setPhone($data['phone']);
             $user->setPassword($passwordHasherInterface->hashPassword($user, $data['password']));
-            $user->setBirthDate(new \DateTime());
+            $user->setBirthDate(new \DateTime($data['birth_date']));
             $user->setUserType($em->getRepository(UserType::class)->find(UserType::USER_TYPE_CLIENT));
             $this->getDoctrine()->getManager();
 
@@ -55,17 +57,15 @@ class DonorApi extends AbstractController
 
             $em->persist($donor);
             $em->flush();
-        } 
-        catch(UniqueConstraintViolationException $e){
-         
+        } catch (UniqueConstraintViolationException $e) {
+
             $response = [
                 "success" => false,
                 "message" => "the email has already been used",
                 "data" => $data
             ];
             return $this->json($response, Response::HTTP_BAD_REQUEST);
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
 
             $response = [
                 "success" => false,
@@ -95,23 +95,21 @@ class DonorApi extends AbstractController
         try {
             $data = json_decode($request->getContent(), true);
 
-          
 
-            $donor =$em->getRepository(Donor::class)->find($data['donor_id']);
-           $donor->setDonationCenter($em->getRepository(DonationCenter::class)->find($data['donation_center_id']));
+
+            $donor = $em->getRepository(Donor::class)->find($data['donor_id']);
+            $donor->setDonationCenter($em->getRepository(DonationCenter::class)->find($data['donation_center_id']));
 
             $em->flush();
-        } 
-        catch(UniqueConstraintViolationException $e){
-         
+        } catch (UniqueConstraintViolationException $e) {
+
             $response = [
                 "success" => false,
                 "message" => "the email has already been used",
                 "data" => $data
             ];
             return $this->json($response, Response::HTTP_BAD_REQUEST);
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
 
             $response = [
                 "success" => false,
@@ -126,7 +124,7 @@ class DonorApi extends AbstractController
             "success" => true,
             "message" => "registered Successfully",
             "data" => [
-             
+
                 "donor_id" => $donor->getId(),
             ]
         ];
@@ -140,18 +138,63 @@ class DonorApi extends AbstractController
         try {
 
             $id = json_decode($request->getContent(), true)['id'];
-            
-                
-            } catch (\Throwable $th) {
-               
+        } catch (\Throwable $th) {
+        }
+
+        $response = [
+            "success" => true,
+            "message" => "fetched",
+            "data" => $donorRepository->getSingleData(["id" => $id])
+        ];
+        return $this->json($response, 200);
+    }
+    #[Route('/appointment-show', name: 'donor_appoint_show_api', methods: ['GET', 'POST'])]
+    public function appointmentShow(AppointmentRepository  $appointmentRepository, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+
+        try {
+
+            $requestdata = json_decode($request->getContent(), true);
+
+            if (isset($requestdata['action'])) {
+
+                if (isset($requestdata['change_appointment'])) {
+                    $appointment = $appointmentRepository->find($requestdata['appointment_id']);
+                    $appointment->setAppointmentDate(new \DateTime($requestdata['appointment_date']));
+
+                    $appointment->setStatus(Appointment::APPOINTMENT_POSTPHONED);
+                }
+                if (isset($requestdata['approve'])) {
+
+                    $appointment = $appointmentRepository->find($requestdata['appointment_id']);
+                    $appointment->setStatus(Appointment::APPOINTMENT_APPROVED);
+                }
+                $em->flush();
+                $response = [
+                    "success" => true,
+                    "message" => "Action Done Successfully",
+                    "data" => $appointmentRepository->getSingleData(["id" => $requestdata['donor_id']])
+                ];
+                return $this->json($response, 200);
             }
-        
+        } catch (\Throwable $th) {
             $response = [
                 "success" => true,
-                "message" => "fetched",
-                "data" =>$donorRepository->getSingleData(["id"=>$id])
+                "message" => $th->getMessage(),
+                "data" => $request->getContent()
             ];
             return $this->json($response, 200);
+        }
+
+
+        $response = [
+            "success" => true,
+            "message" => "fetched",
+            "data" => $appointmentRepository->getSingleData(["id" => $requestdata['donor_id']])
+        ];
+        return $this->json($response, 200);
     }
     #[Route('/', name: 'donor_index_api', methods: ['GET', 'POST'])]
     public function index(Request $request, DonorRepository $donorRepository)

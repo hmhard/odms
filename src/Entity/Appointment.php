@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Appointment
 {
+
+    const APPOINTMENT_CREATED = 0;
+    const APPOINTMENT_POSTPHONED = 1;
+    const APPOINTMENT_APPROVED = 2;
+    const APPOINTMENT_DONE = 3;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -60,16 +65,31 @@ class Appointment
      */
     private $appointmentConversations;
 
+
     public function __construct()
     {
-        $this->status=1;
-        $this->createdAt=new \DateTime('now');
+        $this->status = 0;
+        $this->createdAt = new \DateTime('now');
         $this->appointmentConversations = new ArrayCollection();
     }
     public function __toString()
     {
-       return $this->appointmentDate->format("F j Y, H:iA");
+        return $this->appointmentDate->format("F j Y, H:iA");
     }
+
+    public function getStatusDesc()
+    {
+        if ($this->status == self::APPOINTMENT_CREATED)
+            return "Created";
+        if ($this->status == self::APPOINTMENT_POSTPHONED)
+            return "POSTPHONED";
+        if ($this->status == self::APPOINTMENT_APPROVED)
+            return "APPROVED";
+        if ($this->status == self::APPOINTMENT_DONE)
+            return "DONE";
+        return "Unknown";
+    }
+
 
     public function getId(): ?int
     {

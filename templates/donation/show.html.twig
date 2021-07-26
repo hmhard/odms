@@ -1,61 +1,133 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Donation{% endblock %}
-{% block maintitle %}Donation{% endblock %}
+{% block title %}Donation
+{% endblock %}
+{% block maintitle %}Donation
+{% endblock %}
 
 {% block body %}
-  	<div class="card">
+	<div class="card">
 
 		<div class="card-header">
-          <a class="btn btn-primary float-right" href="{{ path('donation_index') }}">Back</a>
-		
-			<div class="card-tools">
-			
+			<form method="post">
+				<a class="btn btn-primary   px-3 mx-3" href="{{ path('donation_index') }}">Back</a>
+				<input hidden name="take_action" value="true"/>
+				{% set donation_status = "Donation Created" %}
+				{% if donation.status == 1 %}
+					{% set donation_status = "Donation Done" %}
+				{% elseif donation.status == 2  %}
+					{% set donation_status = "Donation Cancelled" %}
+				{% elseif donation.status == 3  %}
+					{% set donation_status = "Donation Approved" %}
+				{% elseif donation.status == 4  %}
+					{% set donation_status = "Donation Finished" %}
+
+				{% endif %}
+				{% if donation.status == 0 %}
+
+					<input type="submit" class="btn btn-secondary px-3  mx-3 " name="done" value="Done"></input>
+			{% endif %}
+
+			{% if is_granted('ROLE_FOLLOWER') %}
+
+				<input type="submit" class="btn btn-secondary px-3  mx-3 " name="approve" value="Approve"/>
+			{% endif %}
+			{% if is_granted('ROLE_DOCTOR') %}
+
+				{% if donation.status == 1 %}
+
+					<input type="submit" class="btn btn-warning   px-3 mx-3" name="cancel" value="Cancel"/>
+					<input type="submit" class="btn btn-secondary px-3  mx-3 " name="finish" value="Finish"/>
+				{% endif %}
+			{% endif %}
+		</form>
+		<div class="card-tools">
+
+			<div class="card-title">Donation Status
+				<span class="badge badge-info">{{donation_status}}</span>
 			</div>
 		</div>
-		<div class="card-body">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Donation CODE</th>
-                <td>{{"DON-"~ donation.id }}</td>
-            </tr>
-            <tr>
-                <th>Donation Center</th>
-                <td>{{ donation.donationCenter }}</td>
-            </tr>
-            <tr>
-                <th>Donor</th>
-                <td>{{ donation.donor }}</td>
-            </tr>
-            <tr>
-                <th>Recipient</th>
-                <td>{{ donation.recipient }}</td>
-            </tr>
-            <tr>
-                <th>Processed By(Doctor)</th>
-                <td>{{ donation.processedBy }}</td>
-            </tr>
-            <tr>
-                <th>Followed By</th>
-                <td>{{ donation.followedBy?:"not approved yet" }}</td>
-            </tr>
-            <tr>
-                <th>Donor Status</th>
-                <td>{{ donation.donorStatus }}</td>
-            </tr>
-            <tr>
-                <th>Recipient Status</th>
-                <td>{{ donation.recipientStatus }}</td>
-            </tr>
-            <tr>
-                <th>Done At</th>
-                <td>{{ donation.processedAt ? donation.processedAt|date('F d Y H:iA') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	</div>
+	<div class="card-body">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Donation CODE</th>
+					<td>{{"DON-"~ donation.id }}</td>
+				</tr>
+				<tr>
+					<th>Donation Center</th>
+					<td>{{ donation.donationCenter }}</td>
+				</tr>
+				<tr>
+					<th>Donor</th>
+					<td>{{ donation.donor }}</td>
+				</tr>
+				<tr>
+					<th>Recipient</th>
+					<td>{{ donation.recipient }}</td>
+				</tr>
+				<tr>
+					<th>Processed By(Doctor)</th>
+					<td>{{ donation.processedBy }}</td>
+				</tr>
+				<tr>
+					<th>Followed By</th>
+					<td>{{ donation.followedBy?:"not approved yet" }}</td>
+				</tr>
+				<tr>
+					<th>Donor Status</th>
+					<td>{{ donation.donorStatus }}</td>
+				</tr>
+				<tr>
+					<th>Recipient Status</th>
+					<td>{{ donation.recipientStatus }}</td>
+				</tr>
+				<tr>
+					<th>Done At</th>
+					<td>{{ donation.processedAt ? donation.processedAt|date('F d Y H:iA') : '' }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="card card-comments">
+	<div class="card-header">
+		Feedbacks
+	</div>
+	<div class="card-body">
 
-    {# <a href="{{ path('donation_edit', {'id': donation.id}) }}">edit</a> #}
+		<div
+			class="card-comment">
+			<!-- User image -->
+			<img class="img-circle img-sm" src="{{asset('assets/dist/img/user3-128x128.jpg')}}" alt="User Image">
 
-    {# {{ include('donation/_delete_form.html.twig') }} #}
+			<div class="comment-text">
+				<span class="username">
+					Doctor Comment
+					<span class="text-muted float-right">8:03 PM Today</span>
+				</span>
+				<!-- /.username -->
+			this is my comment
+			</div>
+			<!-- /.comment-text -->
+		</div>
+		<!-- /.card-comment -->
+		<div
+			class="card-comment">
+			<!-- User image -->
+			<img class="img-circle img-sm" src="{{asset('assets/dist/img/user4-128x128.jpg')}}" alt="User Image">
+
+			<div class="comment-text">
+				<span class="username">
+					Luna Stark
+					<span class="text-muted float-right">8:03 PM Today</span>
+				</span>
+				<!-- /.username -->
+				this is the feedback
+			</div>
+			<!-- /.comment-text -->
+		</div>
+		<!-- /.card-comment -->
+	</div>
 {% endblock %}

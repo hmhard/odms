@@ -41,7 +41,20 @@ class DonationRepository extends ServiceEntityRepository
          
         ;
     }
-  
+    public function getSingleData($filter=[])
+    {
+        return $this->createQueryBuilder('d')
+           ->join("d.donor","dn")
+           ->join("d.recipient","r")
+           ->join("d.donationCenter","dc")
+           ->join("d.processedBy","p")
+        ->andWhere("dn.id = :donor_id")
+        ->setParameter("donor_id",$filter['donor_id'])
+           ->select("d.id as donation_id,d.status, dn.id as donor_id,p.id as user_id, r.id as recipient_id, dc.id as donation_center_id")
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
     // /**
     //  * @return Donation[] Returns an array of Donation objects

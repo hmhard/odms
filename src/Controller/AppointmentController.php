@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 
 
 #[Route('/appointment')]
@@ -32,7 +36,7 @@ class AppointmentController extends AbstractController
         ]);
     }
     #[Route('/new', name: 'appointment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, MailerInterface $mailer): Response
     {
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
@@ -42,10 +46,36 @@ class AppointmentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($appointment);
             $entityManager->flush();
+            if($appointment->getDonor()){
+                $email = (new TemplatedEmail())
+                ->from('mine@example.com')
+                // ->to(new Address("miniye6453@gmail.com"))
+                ->to(new Address($appointment->getDonor()->getUser()->getEmail()))
+                ->cc(new Address($appointment->getAppointedBy()->getEmail()))
+                ->subject('Appointment Notification!')
+            
+               ->htmlTemplate('emails/appointment.html.twig')
+            
+                ->context([
+                    'appointment' =>$appointment,
+                 
+                ])
+            ;
+            try {
+                $mailer->send($email); 
+                $this->addFlash("success","appointment Email Sent to donor");
+    
+            } catch (\Throwable $th) {
+              
+            $this->addFlash("warning","Error on email sending");
 
-            $this->addFlash("success","Registered Successfully");
+            }
+          
+            }
 
-            return $this->redirectToRoute('appointment_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash("success","Appointment Created  Successfully");
+
+            return $this->redirectToRoute('appointment_show', ["id"=>$appointment->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('appointment/new.html.twig', [

@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel='shortcut icon' type='image/x-icon' href="{{asset('images/favicon.ico')}}"/>
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<link rel='shortcut icon' type='image/x-icon' href='{{asset("images/favicon.ico")}}'/>
+
+		<title>
+			ODMS
+															 |
+			{% block title %}
+				Dashboard
+			{% endblock %}
+		</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+		<link
+		rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
+
+		{# <link rel="stylesheet" href="{{ asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}"> #}
+
+		<link rel="stylesheet" href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+
+
+		<link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css')}}">
+
+		<link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+
+		<link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css')}}">
+		<link rel="stylesheet" href="{{ asset('assets/plugins/pace-progress/themes/black/pace-theme-minimal.css')}}">
+		<link
+		rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
+		{# <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> #}
+		<link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+
+	</head>
+
+	<body>
+		<div class="card">
+
+			<div class="card-header">
+
+				<div class="card-title">
+
+					Dear
+					{{appointment.donor}}
+				</div>
+				<div class="card-tools"></div>
+			</div>
+			<div class="card-body">
+				<div class="h2">
+
+					<div>
+						<p>
+							This letter is to confirm your appointment for
+							<b>{{appointment.donor.organ}}</b>
+							Donation 
+																			at
+							<b>{{ appointment.appointmentDate ? appointment.appointmentDate|date('Y-m-d H:i:s') : '' }}.</b>
+							with Dr.
+							<b>{{appointment.appointedBy}}</b>
+							Please plan to arrive approximately 30 minutes prior to your
+																								scheduled appointment to allow time for you and your significant other to
+																								sign consent forms that are required for your donation. It is important that your
+																								significant other is able to accompany you to your appointments as much as
+																								possible.
+						</p>
+						<p>
+							My staff and I appreciate your selecting our Meical Center for your Donation. We
+																			recognize the trust and responsibility placed in us and we will do everything possible
+																			to provide for those needs. We look forward to seeing you!
+						</p>
+						<p>
+							Sincerely,
+						</p>
+						<p>
+							Medical Department
+						</p>
+					</div>
+
+
+				</div>
+			</div>
+		</body>
+	</body>
+</html>

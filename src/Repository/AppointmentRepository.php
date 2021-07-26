@@ -42,6 +42,18 @@ class AppointmentRepository extends ServiceEntityRepository
          
         ;
     }
+    public function getSingleData($filter=[])
+    {
+        return $this->createQueryBuilder('a')
+           ->join("a.appointedBy","ab")
+           ->join("a.donor","d")
+        ->andWhere("d.id = :id")
+        ->setParameter("id",$filter['id'])
+           ->select("a.id as appointment_id,d.id as donor_id,a.status, a.appointmentDate, ab.id as user_id, ab.firstName,ab.middleName,ab.lastName")
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
   
     // /**
     //  * @return Appointment[] Returns an array of Appointment objects

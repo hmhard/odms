@@ -69,9 +69,29 @@ class DonationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'donation_show', methods: ['GET'])]
-    public function show(Donation $donation): Response
+    #[Route('/{id}', name: 'donation_show', methods: ['GET',"POST"])]
+    public function show(Donation $donation, Request $request): Response
     {
+        $requestd = $request->request;
+        if ($requestd->get('take_action')) {
+
+            if ($requestd->get('approve')) {
+                $donation->setStatus(Donation::DONATION_APPROVED);
+            }
+            if ($requestd->get('cancel')) {
+                $donation->setStatus(Donation::DONATION_CANCELLED);
+            }
+            if ($requestd->get('finish')) {
+                $donation->setStatus(Donation::DONATION_FINISHED);
+            }
+            if ($requestd->get('done')) {
+            
+                $donation->setStatus(Donation::DONATION_DONE);
+            }
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash("success", "Action Done successfully");
+            return $this->redirectToRoute("donation_show",['id'=>$donation->getId()]);
+        }
         return $this->render('donation/show.html.twig', [
             'donation' => $donation,
         ]);
