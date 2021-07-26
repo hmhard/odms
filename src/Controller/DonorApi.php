@@ -99,17 +99,10 @@ class DonorApi extends AbstractController
 
             $donor = $em->getRepository(Donor::class)->find($data['donor_id']);
             $donor->setDonationCenter($em->getRepository(DonationCenter::class)->find($data['donation_center_id']));
+            $donor->setStatus(Donor::DONOR_DCENTER_CHOOSED);
 
             $em->flush();
-        } catch (UniqueConstraintViolationException $e) {
-
-            $response = [
-                "success" => false,
-                "message" => "the email has already been used",
-                "data" => $data
-            ];
-            return $this->json($response, Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $th) {
+        }  catch (\Throwable $th) {
 
             $response = [
                 "success" => false,

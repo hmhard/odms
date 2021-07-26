@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Donation;
+use App\Entity\Donor;
 use App\Form\DonationType;
 use App\Repository\DonationRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -39,9 +40,9 @@ class DonationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $error = false;
-            if ($donation->getDonor()->getStatus() != 0) {
+            if ($donation->getDonor()->getStatus() != Donor::DONOR_REGISTERED) {
                 $error = true;
-                $form->addError(new FormError("Donor already donored"));
+                $form->addError(new FormError("Donor already donation process"));
             }
             if ($donation->getRecipient()->getStatus() != 0) {
                 $error = true;

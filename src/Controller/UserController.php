@@ -196,9 +196,12 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
+        $form->get('roles')->setData($user->getRoles());
+      
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles($request->request->get('user')['roles']);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');

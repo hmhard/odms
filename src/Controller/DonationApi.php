@@ -38,16 +38,15 @@ class DonationApi extends AbstractController
 
         try {
 
-            $id = json_decode($request->getContent(), true)['donor_id'];
-        } catch (\Throwable $th) {
-        }
+            $request_data = json_decode($request->getContent(), true);
+       
         $data = [];
-        $donation = $donationRepository->getSingleData(["donor_id" => $id]);
+        $donation = $donationRepository->getSingleData($request_data);
         if ($donation) {
             $data['donation'] = $donation;
             $data["donor"] = $donorRepository->getSingleData(["id" => $donation['donor_id']]);
-            $data["recipient"] = $recipientRepository->getSingleData(["id" => $donation['donor_id']]);
-            $data["donation_center"] = $donationCenterRepository->getSingleData(["id" => $donation['donor_id']]);
+            $data["recipient"] = $recipientRepository->getSingleData(["id" => $donation['recipient_id']]);
+            $data["donation_center"] = $donationCenterRepository->getSingleData(["id" => $donation['donation_center_id']]);
             $data["proccessed_by"] = $userRepository->getSingleData(["id" => $donation['user_id']]);
         }
 
@@ -57,5 +56,13 @@ class DonationApi extends AbstractController
             "data" => $data
         ];
         return $this->json($response, 200);
+    } catch (\Throwable $th) {
+        $response = [
+            "success" => true,
+            "message" => "Bad data",
+            "data" => json_decode($request->getContent(), true)
+        ];
+        return $this->json($response, 400);
+    }
     }
 }

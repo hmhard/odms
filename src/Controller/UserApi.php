@@ -25,7 +25,7 @@ class UserApi extends AbstractController
 
 
     #[Route('/login', name: 'user_login_api', methods: ['GET', 'POST'])]
-    public function login(Request $request,DonorRepository $donorRepository,RecipientRepository $recipientRepository, UserPasswordHasherInterface $passwordHasherInterface)
+    public function login(Request $request, DonorRepository $donorRepository, RecipientRepository $recipientRepository, UserPasswordHasherInterface $passwordHasherInterface)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -39,8 +39,8 @@ class UserApi extends AbstractController
             return     $this->json(["success" => false, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
         }
 
-        $donor=$donorRepository->findOneBy(["user"=>$user]);
-        if($donor){
+        $donor = $donorRepository->findOneBy(["user" => $user]);
+        if ($donor) {
 
             $response = [
                 "success" => true,
@@ -48,13 +48,13 @@ class UserApi extends AbstractController
                 "data" => [
                     "user_id" => $user->getId(),
                     "donor_id" => $donor->getId(),
-                 
-    
+                    "status" => $donor->getStatus(),
+
+
                 ]
             ];
-        }
-        else{
-            $recipient=$recipientRepository->findOneBy(["user"=>$user]);
+        } else {
+            $recipient = $recipientRepository->findOneBy(["user" => $user]);
 
             $response = [
                 "success" => true,
@@ -62,7 +62,9 @@ class UserApi extends AbstractController
                 "data" => [
                     "user_id" => $user->getId(),
                     "recipient_id" => $recipient->getId(),
-           
+                    "status" => $recipient->getStatus(),
+
+
                 ]
             ];
         }

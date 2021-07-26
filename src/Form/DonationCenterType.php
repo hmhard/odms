@@ -14,7 +14,7 @@ class DonationCenterType extends AbstractType
         $builder
             ->add('name')
             ->add('address')
-            ->add('photo')
+            // ->add('photo')
          
             ->add('location')
             ->add('description')

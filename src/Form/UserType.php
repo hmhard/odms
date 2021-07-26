@@ -13,7 +13,7 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $role = ["System Admin" => "SYSTEM_ADMIN", "Doctor" => "DOCTOR", "Recipient" => "RECEIPIENT", "Donor" => "DONOR"];
+        $role = ["System Admin" => "ROLE_SYSTEM_ADMIN", "Doctor" => "ROLE_DOCTOR", "Recipient" => "ROLE_RECEPIENT", "Donor" => "ROLE_DONOR"];
 
         $builder
 

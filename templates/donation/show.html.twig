@@ -11,6 +11,7 @@
 		<div class="card-header">
 			<form method="post">
 				<a class="btn btn-primary   px-3 mx-3" href="{{ path('donation_index') }}">Back</a>
+				<a class="btn btn-warning   px-3 mx-3" href="{{ path('donation_edit',{id:donation.id}) }}">Edit</a>
 				<input hidden name="take_action" value="true"/>
 				{% set donation_status = "Donation Created" %}
 				{% if donation.status == 1 %}

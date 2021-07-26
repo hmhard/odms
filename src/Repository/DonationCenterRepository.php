@@ -34,7 +34,7 @@ class DonationCenterRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
       
-           ->select("d.name, d.address, d.location, d.photo , d.description")
+           ->select("d.id, d.name, d.address, d.location, d.photo , d.description")
             ->getQuery()
             ->getArrayResult()
         ;
@@ -45,7 +45,7 @@ class DonationCenterRepository extends ServiceEntityRepository
          
         ->andWhere("d.id = :id")
         ->setParameter("id",$filter['id'])
-        ->select("d.name, d.address, d.location, d.photo , d.description") 
+        ->select("d.id,d.name, d.address, d.location, d.photo , d.description") 
            ->getQuery()
             ->getOneOrNullResult()
         ;

@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Donor
 {
+    const DONOR_REGISTERED=0;
+    const DONOR_APPOINTED=1;
+    const DONOR_DCENTER_CHOOSED=2;
+    const DONOR_DONORED=3;
+    const DONOR_CANCELLED=4;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -43,14 +43,24 @@ class DonationRepository extends ServiceEntityRepository
     }
     public function getSingleData($filter=[])
     {
-        return $this->createQueryBuilder('d')
+        $qb=$this->createQueryBuilder('d')
            ->join("d.donor","dn")
            ->join("d.recipient","r")
            ->join("d.donationCenter","dc")
-           ->join("d.processedBy","p")
-        ->andWhere("dn.id = :donor_id")
-        ->setParameter("donor_id",$filter['donor_id'])
-           ->select("d.id as donation_id,d.status, dn.id as donor_id,p.id as user_id, r.id as recipient_id, dc.id as donation_center_id")
+           ->join("d.processedBy","p");
+           if(isset($filter['donor_id'])){
+         
+            $qb   ->andWhere("dn.id = :donor_id")
+               ->setParameter("donor_id",$filter['donor_id']);
+           }
+           if(isset($filter['recipient_id'])){
+           
+
+            $qb   ->andWhere("r.id = :recipient_id")
+               ->setParameter("recipient_id",$filter['recipient_id']);
+           }
+           return $qb->select("d.id as donation_id,d.status, dn.id as donor_id,p.id as user_id, r.id as recipient_id, dc.id as donation_center_id")
+           ->orderBy('d.id', 'DESC')
             ->getQuery()
             ->getOneOrNullResult()
         ;

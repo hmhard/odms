@@ -37,7 +37,7 @@
                 <td>{{ appointment.appointedBy }}</td>
                 <td>{{ appointment.donor ?:appointment.recipient }}<span class="badge badge-info">{{ appointment.donor ?"donor":"recipient" }}</span></td>
                 <td>{{ appointment.appointmentDate ? appointment.appointmentDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td><span class="badge badge-success">{{ appointment.status == 2 ?"proccessed":"active" }}</span></td>
+                <td><span class="badge badge-success">{{ appointment.statusDesc  }}</span></td>
                 <td>{{ appointment.createdAt ? appointment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('appointment_show', {'id': appointment.id}) }}">show</a>
